@@ -3,6 +3,7 @@ import { SampleFridge, Recipe } from '../types';
 export const TELUGU_INDIAN_RECIPES: Recipe[] = [
   {
     id: 'rec-gutti-vankaya',
+    isSample: true,
     title: 'Authentic Telugu Gutti Vankaya Kura (Stuffed Eggplant Curry)',
     description: 'Tender baby brinjals stuffed with a aromatic dry-roasted sesame, peanut, coconut, and coriander spice paste, simmered in a tangy Andhra gravy.',
     imageUrl: 'https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=1000&q=80',
@@ -87,6 +88,7 @@ export const TELUGU_INDIAN_RECIPES: Recipe[] = [
   },
   {
     id: 'rec-andhra-pappu-charu',
+    isSample: true,
     title: 'Andhra Tomato Pappu Charu & Tempered Spinach',
     description: 'Comforting Telugu style Toor dal stewed with ripe tomatoes, tamarind juice, and tempered with mustard seeds, cumin, garlic, and crispy curry leaves.',
     imageUrl: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=1000&q=80',
@@ -156,6 +158,7 @@ export const TELUGU_INDIAN_RECIPES: Recipe[] = [
   },
   {
     id: 'rec-pesarattu-upma',
+    isSample: true,
     title: 'Protein-Rich Andhra Pesarattu (Whole Green Gram Crepe)',
     description: 'Crisp, vibrant green crepe made from soaked whole mung beans and ginger, served with spicy ginger tamarind (Allam) chutney.',
     imageUrl: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=1000&q=80',
@@ -222,6 +225,7 @@ export const TELUGU_INDIAN_RECIPES: Recipe[] = [
   },
   {
     id: 'rec-moms-peanut-salad',
+    isSample: true,
     title: "Mom's Nostalgic Indian Peanut Salad (Palli Salad)",
     description: "Crunchy boiled peanuts tossed with finely diced carrots, red onions, juicy tomatoes, green chilies, and tempered with mustard seeds, curry leaves, hing & squeezed lemon — just like Mom makes it.",
     imageUrl: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=1000&q=80',
@@ -312,6 +316,7 @@ export const TELUGU_INDIAN_RECIPES: Recipe[] = [
   },
   {
     id: 'rec-hyderabadi-paneer-tikka',
+    isSample: true,
     title: 'Low-Calorie Hyderabadi Paneer Tikka Gravy',
     description: 'Char-broiled paneer cubes and bell peppers simmered in a spiced tomato yogurt curry infused with mint, kasuri methi, and saffron.',
     imageUrl: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=1000&q=80',

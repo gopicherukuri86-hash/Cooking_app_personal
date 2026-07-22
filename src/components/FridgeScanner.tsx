@@ -155,7 +155,7 @@ export const FridgeScanner: React.FC<FridgeScannerProps> = ({
     onNavigateToRecipes();
   };
 
-  const [expandedSubstituteId, setExpandedSubstituteId] = useState<string | null>(null);
+  const [showSwapsAccordion, setShowSwapsAccordion] = useState<boolean>(false);
 
   // Auto-enrich detected ingredients with smart substitutes
   const enrichedIngredients = useMemo(() => {
@@ -175,24 +175,6 @@ export const FridgeScanner: React.FC<FridgeScannerProps> = ({
     setDetectedIngredients((prev) =>
       prev.map((i) => {
         if (i.id === item.id) {
-          return {
-            ...i,
-            name: sub.alternativeName,
-            suggestedSubstitute: undefined,
-          };
-        }
-        return i;
-      })
-    );
-    setExpandedSubstituteId(null);
-  };
-
-  // Swap all detected items with healthier/pantry alternatives at once
-  const handleSwapAllSubstitutes = () => {
-    setDetectedIngredients((prev) =>
-      prev.map((i) => {
-        const sub = i.suggestedSubstitute || getSubstituteForIngredientName(i.name);
-        if (sub) {
           return {
             ...i,
             name: sub.alternativeName,
@@ -617,152 +599,129 @@ export const FridgeScanner: React.FC<FridgeScannerProps> = ({
           {/* Right Column: Identified Ingredients (5 cols) */}
           <div className="lg:col-span-5 space-y-6">
             <div className="bg-white border border-[#E6E2D3] rounded-[32px] p-8 shadow-sm space-y-5">
-              <div className="flex items-center justify-between flex-wrap gap-2">
-                <div>
-                  <span className="text-[10px] uppercase tracking-widest text-[#8E8E7A] font-bold block">
-                    Fridge Inventory
-                  </span>
-                  <h3 className="text-lg font-serif italic font-bold text-[#2D2D20]">
-                    Detected Ingredients ({detectedIngredients.length})
-                  </h3>
-                </div>
-
-                {itemsWithSubstitutes.length > 0 && (
-                  <button
-                    onClick={handleSwapAllSubstitutes}
-                    className="px-3 py-1.5 bg-[#F1EFE6] hover:bg-[#E6E2D3] border border-[#5A5A40] text-[#333322] text-xs font-bold rounded-full transition-all flex items-center gap-1.5 shadow-sm"
-                    title="Replace all heavy or missing items with healthier/pantry-friendly alternatives"
-                  >
-                    <Zap className="w-3.5 h-3.5 text-[#5A5A40]" /> Swap All ({itemsWithSubstitutes.length})
-                  </button>
-                )}
+              <div>
+                <span className="text-[10px] uppercase tracking-widest text-[#8E8E7A] font-bold block">
+                  Fridge Inventory
+                </span>
+                <h3 className="text-lg font-serif italic font-bold text-[#2D2D20]">
+                  Detected Ingredients ({detectedIngredients.length})
+                </h3>
               </div>
 
-              {/* Category Breakdown Chips with Smart Substitute Indicators */}
-              <div className="space-y-4 max-h-[360px] overflow-y-auto pr-1">
-                {CATEGORIES.map((cat) => {
-                  const catItems = enrichedIngredients.filter((item) => item.category === cat);
-                  if (catItems.length === 0) return null;
+              {detectedIngredients.length === 0 ? (
+                /* Warm first-run empty state */
+                <div className="py-8 px-5 text-center bg-[#F9F8F4] border border-[#E6E2D3] rounded-2xl space-y-4">
+                  <div className="w-12 h-12 rounded-full bg-[#F1EFE6] text-[#5A5A40] flex items-center justify-center mx-auto shadow-xs">
+                    <Utensils className="w-5 h-5" />
+                  </div>
+                  <div className="space-y-1">
+                    <h4 className="text-base font-serif italic font-bold text-[#2D2D20]">
+                      Welcome to Your Kitchen Studio
+                    </h4>
+                    <p className="text-xs text-[#5A5A40] leading-relaxed max-w-xs mx-auto">
+                      Scan your fridge photo or pick a sample fridge above to discover wholesome, home-cooked recipes tailored to what you have.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => handleSelectSample(SAMPLE_FRIDGES[0].id)}
+                    className="px-5 py-2.5 bg-[#5A5A40] hover:bg-[#4A4A35] text-white text-xs font-bold rounded-full shadow-sm transition-all inline-flex items-center gap-2"
+                  >
+                    <Sparkles className="w-3.5 h-3.5 text-[#A3A375]" /> Load Sample Fridge & Find Recipes
+                  </button>
+                </div>
+              ) : (
+                /* Category Breakdown Chips with subtle ✨ substitute dot */
+                <div className="space-y-4 max-h-[320px] overflow-y-auto pr-1">
+                  {CATEGORIES.map((cat) => {
+                    const catItems = enrichedIngredients.filter((item) => item.category === cat);
+                    if (catItems.length === 0) return null;
 
-                  return (
-                    <div key={cat} className="space-y-2">
-                      <span className="text-[10px] font-bold text-[#8E8E7A] uppercase tracking-widest">
-                        {cat} ({catItems.length})
-                      </span>
-                      <div className="flex flex-wrap gap-2">
-                        {catItems.map((item) => {
-                          const sub = item.suggestedSubstitute;
-                          const isExpanded = expandedSubstituteId === item.id;
-
-                          return (
-                            <div key={item.id} className="w-full sm:w-auto">
+                    return (
+                      <div key={cat} className="space-y-2">
+                        <span className="text-[10px] font-bold text-[#8E8E7A] uppercase tracking-widest">
+                          {cat} ({catItems.length})
+                        </span>
+                        <div className="flex flex-wrap gap-2">
+                          {catItems.map((item) => {
+                            const sub = item.suggestedSubstitute;
+                            return (
                               <div
-                                className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-xs text-[#333322] transition-all ${
-                                  sub
-                                    ? 'bg-[#F1EFE6] border-[#5A5A40]'
-                                    : 'bg-[#F5F5F0] border-[#D1CEC0]'
-                                }`}
+                                key={item.id}
+                                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F5F5F0] border border-[#D1CEC0] text-xs text-[#333322]"
                               >
                                 <span className="font-medium">{item.name}</span>
-
                                 {sub && (
-                                  <button
-                                    onClick={() =>
-                                      setExpandedSubstituteId(isExpanded ? null : item.id)
-                                    }
-                                    className="bg-[#5A5A40] text-white hover:bg-[#4A4A35] text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 transition-colors"
+                                  <span
+                                    title={`Healthier swap available: ${sub.alternativeName}`}
+                                    className="text-[10px]"
                                   >
-                                    <Sparkles className="w-2.5 h-2.5 text-[#A3A375]" />
-                                    {isExpanded ? 'Hide Swap' : '✨ Swap'}
-                                  </button>
+                                    ✨
+                                  </span>
                                 )}
-
                                 <button
                                   onClick={() => handleDeleteIngredient(item.id)}
-                                  className="text-[#8E8E7A] hover:text-rose-600 transition-colors ml-1"
+                                  className="text-[#8E8E7A] hover:text-rose-600 transition-colors ml-0.5"
                                   title="Remove item"
                                 >
                                   <Trash2 className="w-3 h-3" />
                                 </button>
                               </div>
-
-                              {/* Expandable Substitute Card */}
-                              {sub && isExpanded && (
-                                <div className="mt-2 p-3 bg-[#F9F8F4] border border-[#5A5A40] rounded-2xl space-y-2 text-xs shadow-md animate-fadeIn">
-                                  <div className="flex items-center justify-between">
-                                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#5A5A40]">
-                                      Suggested {sub.type} Alternative
-                                    </span>
-                                    {sub.caloriesSaved && (
-                                      <span className="text-[10px] bg-[#5A5A40] text-white px-2 py-0.5 rounded-full font-bold">
-                                        {sub.caloriesSaved}
-                                      </span>
-                                    )}
-                                  </div>
-                                  <p className="font-bold text-[#2D2D20]">
-                                    Use <span className="text-[#5A5A40]">{sub.alternativeName}</span> instead
-                                  </p>
-                                  <p className="text-[11px] text-[#5A5A40] leading-snug">
-                                    {sub.reason}
-                                  </p>
-                                  <button
-                                    onClick={() => handleSwapIngredient(item)}
-                                    className="w-full py-1.5 px-3 bg-[#5A5A40] hover:bg-[#4A4A35] text-white rounded-xl text-[11px] font-bold transition-all flex items-center justify-center gap-1.5"
-                                  >
-                                    <ArrowRightLeft className="w-3 h-3" /> Apply Swap
-                                  </button>
-                                </div>
-                              )}
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-
-              {/* Dedicated Smart Substitutes Banner */}
-              {itemsWithSubstitutes.length > 0 && (
-                <div className="p-4 bg-[#F9F8F4] border border-[#E6E2D3] rounded-2xl space-y-3">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <Sparkles className="w-4 h-4 text-[#5A5A40]" />
-                      <span className="text-xs font-bold text-[#2D2D20]">
-                        Smart Healthier & Pantry Alternatives
-                      </span>
-                    </div>
-                    <span className="text-[10px] bg-[#E6E2D3] text-[#333322] px-2 py-0.5 rounded-full font-bold">
-                      {itemsWithSubstitutes.length} Suggestions
-                    </span>
-                  </div>
-
-                  <div className="space-y-2 max-h-40 overflow-y-auto pr-1">
-                    {itemsWithSubstitutes.map((item) => {
-                      const sub = item.suggestedSubstitute!;
-                      return (
-                        <div
-                          key={item.id}
-                          className="p-2.5 bg-white border border-[#E6E2D3] rounded-xl flex items-center justify-between gap-2 text-xs"
-                        >
-                          <div className="space-y-0.5 min-w-0">
-                            <span className="text-[11px] font-semibold text-[#8E8E7A] block truncate">
-                              {item.name} → <strong className="text-[#333322]">{sub.alternativeName}</strong>
-                            </span>
-                            <span className="text-[10px] text-[#5A5A40] block truncate">
-                              {sub.reason}
-                            </span>
-                          </div>
-                          <button
-                            onClick={() => handleSwapIngredient(item)}
-                            className="px-2.5 py-1 bg-[#5A5A40] text-white hover:bg-[#4A4A35] rounded-lg text-[10px] font-bold flex-shrink-0 transition-colors"
-                          >
-                            Swap
-                          </button>
+                            );
+                          })}
                         </div>
-                      );
-                    })}
-                  </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+
+              {/* Single Optional Collapsed Swaps Accordion */}
+              {detectedIngredients.length > 0 && itemsWithSubstitutes.length > 0 && (
+                <div className="border border-[#E6E2D3] rounded-2xl overflow-hidden bg-[#F9F8F4] text-xs transition-all">
+                  <button
+                    type="button"
+                    onClick={() => setShowSwapsAccordion(!showSwapsAccordion)}
+                    className="w-full px-4 py-2.5 flex items-center justify-between font-bold text-[#5A5A40] hover:bg-[#F1EFE6] transition-colors"
+                  >
+                    <span className="flex items-center gap-1.5">
+                      <Sparkles className="w-3.5 h-3.5 text-[#5A5A40]" />
+                      Healthier swaps available ({itemsWithSubstitutes.length})
+                    </span>
+                    <span className="text-[10px] font-bold text-[#8E8E7A]">
+                      {showSwapsAccordion ? 'Hide' : 'View'}
+                    </span>
+                  </button>
+
+                  {showSwapsAccordion && (
+                    <div className="p-3 border-t border-[#E6E2D3] space-y-2 bg-white max-h-48 overflow-y-auto">
+                      {itemsWithSubstitutes.map((item) => {
+                        const sub = item.suggestedSubstitute!;
+                        return (
+                          <div
+                            key={item.id}
+                            className="p-2.5 bg-[#F9F8F4] border border-[#E6E2D3] rounded-xl flex items-center justify-between gap-2 text-xs"
+                          >
+                            <div className="space-y-0.5 min-w-0">
+                              <span className="text-[11px] text-[#333322] block font-medium">
+                                {item.name} → <strong className="text-[#5A5A40]">{sub.alternativeName}</strong>
+                              </span>
+                              <span className="text-[10px] text-[#8E8E7A] block truncate">
+                                {sub.reason} {sub.caloriesSaved ? `(${sub.caloriesSaved})` : ''}
+                              </span>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => handleSwapIngredient(item)}
+                              className="px-2.5 py-1 bg-[#5A5A40] text-white hover:bg-[#4A4A35] rounded-lg text-[10px] font-bold flex-shrink-0 transition-colors"
+                            >
+                              Swap
+                            </button>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
                 </div>
               )}
 
@@ -792,7 +751,7 @@ export const FridgeScanner: React.FC<FridgeScannerProps> = ({
                 {isLoading ? (
                   <>
                     <RefreshCw className="w-4 h-4 animate-spin text-[#A3A375]" />
-                    Analyzing Fridge & Substitutes...
+                    Analyzing Fridge...
                   </>
                 ) : (
                   <>

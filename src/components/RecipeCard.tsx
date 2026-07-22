@@ -68,10 +68,18 @@ export const RecipeCard: React.FC<RecipeCardProps> = ({
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
-        {/* Match Score Badge */}
-        <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-[#5A5A40] text-white text-[11px] font-bold shadow-md flex items-center gap-1">
-          <Sparkles className="w-3 h-3 text-[#A3A375]" />
-          <span>{recipe.matchScore || 95}% Match</span>
+        {/* Match Score & Sample Badges */}
+        <div className="absolute top-3 left-3 flex items-center gap-1.5">
+          <div className="px-3 py-1 rounded-full bg-[#5A5A40] text-white text-[11px] font-bold shadow-md flex items-center gap-1">
+            <Sparkles className="w-3 h-3 text-[#A3A375]" />
+            <span>{recipe.matchScore || 95}% Match</span>
+          </div>
+
+          {recipe.isSample && (
+            <div className="px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-xs text-[#5A5A40] border border-[#D1CEC0] text-[10px] font-bold shadow-sm tracking-wide uppercase">
+              Sample
+            </div>
+          )}
         </div>
 
         {/* Favorite Save Button */}

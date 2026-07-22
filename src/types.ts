@@ -118,6 +118,7 @@ export interface DailyNutritionGoals {
 
 export interface Recipe {
   id: string;
+  isSample?: boolean;
   title: string;
   description: string;
   imageUrl?: string;
