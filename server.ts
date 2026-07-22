@@ -63,10 +63,11 @@ app.post('/api/analyze-fridge', async (req, res) => {
           );
         }
 
+        const finalRecipes = recipes.length > 0 ? recipes : foundSample.defaultRecipes;
         return res.json({
           detectedIngredients: foundSample.presetIngredients,
           summary: `Identified ${foundSample.presetIngredients.length} ingredients in the ${foundSample.title} fridge sample!`,
-          suggestedRecipes: recipes.length > 0 ? recipes : foundSample.defaultRecipes,
+          suggestedRecipes: finalRecipes.map((r) => ({ ...r, isSample: true })),
         });
       }
     }
@@ -86,7 +87,7 @@ app.post('/api/analyze-fridge', async (req, res) => {
       return res.json({
         detectedIngredients: sample.presetIngredients,
         summary: 'Demo Mode: Showing authentic Telugu & Indian recipes with diet-conscious substitutes.',
-        suggestedRecipes: sample.defaultRecipes,
+        suggestedRecipes: sample.defaultRecipes.map((r) => ({ ...r, isSample: true })),
       });
     }
 
@@ -310,7 +311,7 @@ YOUR TASK:
       return res.json({
         detectedIngredients: sample.presetIngredients,
         summary: 'Generated delicious home-style recipes with diet substitutes.',
-        suggestedRecipes: sample.defaultRecipes,
+        suggestedRecipes: sample.defaultRecipes.map((r) => ({ ...r, isSample: true })),
       });
     }
 
@@ -346,7 +347,7 @@ YOUR TASK:
     return res.status(200).json({
       detectedIngredients: sample.presetIngredients,
       summary: 'Analysis completed.',
-      suggestedRecipes: sample.defaultRecipes,
+      suggestedRecipes: sample.defaultRecipes.map((r) => ({ ...r, isSample: true })),
     });
   }
 });
