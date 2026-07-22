@@ -93,15 +93,6 @@ export default function App() {
     ];
   });
 
-  // Persist goals and logged meals
-  useEffect(() => {
-    localStorage.setItem('culinary_nutrition_goals', JSON.stringify(nutritionGoals));
-  }, [nutritionGoals]);
-
-  useEffect(() => {
-    localStorage.setItem('culinary_logged_meals', JSON.stringify(loggedMeals));
-  }, [loggedMeals]);
-
   // Ingredients detected from fridge scan
   const [detectedIngredients, setDetectedIngredients] = useState<IngredientItem[]>(
     SAMPLE_FRIDGES[0].presetIngredients
@@ -114,29 +105,58 @@ export default function App() {
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
 
   // Shopping list items
-  const [shoppingList, setShoppingList] = useState<ShoppingListItem[]>([
-    {
-      id: 'shop_1',
-      name: 'Tamarind Paste',
-      amount: '2 tbsp',
-      category: 'Pantry',
-      recipeSource: 'Authentic Andhra Gongura Pappu',
-      completed: false,
-      addedAt: new Date().toLocaleDateString(),
-    },
-    {
-      id: 'shop_2',
-      name: 'Fresh Curry Leaves',
-      amount: '1 bunch',
-      category: 'Produce',
-      recipeSource: 'Telangana Style Natu Kodi Kura',
-      completed: false,
-      addedAt: new Date().toLocaleDateString(),
-    },
-  ]);
+  const [shoppingList, setShoppingList] = useState<ShoppingListItem[]>(() => {
+    const saved = localStorage.getItem('culinary_shopping_list');
+    if (saved) {
+      try { return JSON.parse(saved); } catch (e) {}
+    }
+    return [
+      {
+        id: 'shop_1',
+        name: 'Tamarind Paste',
+        amount: '2 tbsp',
+        category: 'Pantry',
+        recipeSource: 'Authentic Andhra Gongura Pappu',
+        completed: false,
+        addedAt: new Date().toLocaleDateString(),
+      },
+      {
+        id: 'shop_2',
+        name: 'Fresh Curry Leaves',
+        amount: '1 bunch',
+        category: 'Produce',
+        recipeSource: 'Telangana Style Natu Kodi Kura',
+        completed: false,
+        addedAt: new Date().toLocaleDateString(),
+      },
+    ];
+  });
 
   // Saved/favorite recipe IDs
-  const [savedRecipeIds, setSavedRecipeIds] = useState<string[]>([]);
+  const [savedRecipeIds, setSavedRecipeIds] = useState<string[]>(() => {
+    const saved = localStorage.getItem('culinary_saved_recipe_ids');
+    if (saved) {
+      try { return JSON.parse(saved); } catch (e) {}
+    }
+    return [];
+  });
+
+  // Persist goals, logged meals, shopping list, and saved recipes
+  useEffect(() => {
+    localStorage.setItem('culinary_nutrition_goals', JSON.stringify(nutritionGoals));
+  }, [nutritionGoals]);
+
+  useEffect(() => {
+    localStorage.setItem('culinary_logged_meals', JSON.stringify(loggedMeals));
+  }, [loggedMeals]);
+
+  useEffect(() => {
+    localStorage.setItem('culinary_shopping_list', JSON.stringify(shoppingList));
+  }, [shoppingList]);
+
+  useEffect(() => {
+    localStorage.setItem('culinary_saved_recipe_ids', JSON.stringify(savedRecipeIds));
+  }, [savedRecipeIds]);
 
   // Filter & Sort States
   const [searchQuery, setSearchQuery] = useState('');

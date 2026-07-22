@@ -70,11 +70,17 @@ app.post('/api/analyze-fridge', async (req, res) => {
       }
     }
 
+    const isDebug = process.env.DEBUG === 'true';
     const ai = getGeminiClient();
 
     // Fallback if no API key is available or provided
     if (!ai) {
-      console.warn('GEMINI_API_KEY missing. Returning realistic sample response.');
+      console.warn('GEMINI_API_KEY missing.');
+      if (isDebug) {
+        return res.status(500).json({
+          error: 'GEMINI_API_KEY environment variable is missing.',
+        });
+      }
       const sample = SAMPLE_FRIDGES[0];
       return res.json({
         detectedIngredients: sample.presetIngredients,
@@ -135,87 +141,145 @@ YOUR TASK:
 4. FOR EVERY RECIPE, PROVIDE DETAILED HEALTHY SUBSTITUTES ("healthySubstitutes"):
    - Identify 1 to 3 heavier ingredients or cooking methods (e.g. oil-fried peanuts -> boiled/air-roasted peanuts; fried papad -> roasted makhana; heavy oil -> light olive oil spray) and provide clear, low-calorie substitutes.
    - Include calories saved (e.g. "Saved ~120 kcal"), health benefit description, and cooking adjustments.
-
-Return JSON adhering strictly to this schema:
-{
-  "detectedIngredients": [
-    {
-      "id": "ing_1",
-      "name": "Ingredient Name",
-      "category": "Produce" | "Protein" | "Dairy" | "Pantry" | "Spices" | "Grains" | "Beverages" | "Other",
-      "quantity": "approx quantity",
-      "freshness": "Fresh" | "Pantry Item",
-      "confidence": 95
-    }
-  ],
-  "summary": "Warm, encouraging chef note highlighting the dish and diet-friendly tweaks.",
-  "suggestedRecipes": [
-    {
-      "id": "rec_1",
-      "title": "Dish Name",
-      "description": "Appetizing description highlighting flavor profile and regional authenticity.",
-      "prepTime": "15 mins",
-      "cookTime": "20 mins",
-      "totalTimeMinutes": 35,
-      "calories": 280,
-      "difficulty": "Easy" | "Medium" | "Hard",
-      "servings": 3,
-      "cuisine": "Indian" | "Global style",
-      "regionalStyle": "Telugu / Andhra" | "South Indian" | "North Indian" | "Mediterranean" | "Global",
-      "matchScore": 95,
-      "dietaryTags": ["Vegetarian", "Gluten-Free", "Low Calorie", "High Protein"],
-      "mealType": "Lunch" | "Dinner" | "Breakfast",
-      "availableIngredients": ["Ingredient 1", "Ingredient 2"],
-      "missingIngredients": [
-        { "name": "Curry leaves", "amount": "1 sprig", "category": "Produce", "estimatedCost": "$0.50" }
-      ],
-      "healthySubstitutes": [
-        {
-          "originalIngredient": "Deep frying in excess oil",
-          "substituteIngredient": "Air-frying or roasting with 1 tsp oil spray",
-          "caloriesSaved": "Saved ~140 kcal",
-          "healthBenefit": "Reduces saturated fats while keeping crispy texture.",
-          "cookingAdjustment": "Air fry at 375°F for 8 minutes."
-        }
-      ],
-      "chefTip": "Pro tip for authentic home flavor.",
-      "nutritionalFacts": {
-        "calories": 280,
-        "protein": "16g",
-        "carbs": "24g",
-        "fat": "12g",
-        "fiber": "6g",
-        "micronutrients": {
-          "ironMg": 3.5,
-          "calciumMg": 150,
-          "vitaminCMg": 20,
-          "potassiumMg": 450,
-          "sodiumMg": 320
-        }
-      },
-      "steps": [
-        {
-          "stepNumber": 1,
-          "title": "Preparation",
-          "description": "Clear step instructions.",
-          "durationMinutes": 5,
-          "tip": "Chef secret",
-          "technique": "Sautéing",
-          "ingredientsUsed": ["Ingredient 1"]
-        }
-      ]
-    }
-  ]
-}
 `;
 
     parts.push({ text: textPrompt });
+
+    const responseSchema = {
+      type: Type.OBJECT,
+      properties: {
+        detectedIngredients: {
+          type: Type.ARRAY,
+          items: {
+            type: Type.OBJECT,
+            properties: {
+              id: { type: Type.STRING },
+              name: { type: Type.STRING },
+              category: { type: Type.STRING },
+              quantity: { type: Type.STRING },
+              freshness: { type: Type.STRING },
+              confidence: { type: Type.NUMBER },
+            },
+            required: ['id', 'name', 'category'],
+          },
+        },
+        summary: { type: Type.STRING },
+        suggestedRecipes: {
+          type: Type.ARRAY,
+          items: {
+            type: Type.OBJECT,
+            properties: {
+              id: { type: Type.STRING },
+              title: { type: Type.STRING },
+              description: { type: Type.STRING },
+              prepTime: { type: Type.STRING },
+              cookTime: { type: Type.STRING },
+              totalTimeMinutes: { type: Type.NUMBER },
+              calories: { type: Type.NUMBER },
+              difficulty: { type: Type.STRING },
+              servings: { type: Type.NUMBER },
+              cuisine: { type: Type.STRING },
+              regionalStyle: { type: Type.STRING },
+              matchScore: { type: Type.NUMBER },
+              dietaryTags: {
+                type: Type.ARRAY,
+                items: { type: Type.STRING },
+              },
+              mealType: { type: Type.STRING },
+              availableIngredients: {
+                type: Type.ARRAY,
+                items: { type: Type.STRING },
+              },
+              missingIngredients: {
+                type: Type.ARRAY,
+                items: {
+                  type: Type.OBJECT,
+                  properties: {
+                    name: { type: Type.STRING },
+                    amount: { type: Type.STRING },
+                    category: { type: Type.STRING },
+                    estimatedCost: { type: Type.STRING },
+                  },
+                  required: ['name', 'amount'],
+                },
+              },
+              healthySubstitutes: {
+                type: Type.ARRAY,
+                items: {
+                  type: Type.OBJECT,
+                  properties: {
+                    originalIngredient: { type: Type.STRING },
+                    substituteIngredient: { type: Type.STRING },
+                    caloriesSaved: { type: Type.STRING },
+                    healthBenefit: { type: Type.STRING },
+                    cookingAdjustment: { type: Type.STRING },
+                  },
+                  required: ['originalIngredient', 'substituteIngredient', 'caloriesSaved'],
+                },
+              },
+              chefTip: { type: Type.STRING },
+              nutritionalFacts: {
+                type: Type.OBJECT,
+                properties: {
+                  calories: { type: Type.NUMBER },
+                  protein: { type: Type.STRING },
+                  carbs: { type: Type.STRING },
+                  fat: { type: Type.STRING },
+                  fiber: { type: Type.STRING },
+                  micronutrients: {
+                    type: Type.OBJECT,
+                    properties: {
+                      ironMg: { type: Type.NUMBER },
+                      calciumMg: { type: Type.NUMBER },
+                      vitaminCMg: { type: Type.NUMBER },
+                      potassiumMg: { type: Type.NUMBER },
+                      sodiumMg: { type: Type.NUMBER },
+                    },
+                  },
+                },
+              },
+              steps: {
+                type: Type.ARRAY,
+                items: {
+                  type: Type.OBJECT,
+                  properties: {
+                    stepNumber: { type: Type.NUMBER },
+                    title: { type: Type.STRING },
+                    description: { type: Type.STRING },
+                    durationMinutes: { type: Type.NUMBER },
+                    tip: { type: Type.STRING },
+                    technique: { type: Type.STRING },
+                    ingredientsUsed: {
+                      type: Type.ARRAY,
+                      items: { type: Type.STRING },
+                    },
+                  },
+                  required: ['stepNumber', 'title', 'description'],
+                },
+              },
+            },
+            required: [
+              'id',
+              'title',
+              'description',
+              'prepTime',
+              'cookTime',
+              'calories',
+              'healthySubstitutes',
+              'steps',
+            ],
+          },
+        },
+      },
+      required: ['detectedIngredients', 'summary', 'suggestedRecipes'],
+    };
 
     const response = await ai.models.generateContent({
       model: 'gemini-3.6-flash',
       contents: { parts },
       config: {
         responseMimeType: 'application/json',
+        responseSchema,
       },
     });
 
@@ -223,8 +287,15 @@ Return JSON adhering strictly to this schema:
     let parsedData;
     try {
       parsedData = JSON.parse(responseText);
-    } catch (parseErr) {
-      console.error('Failed to parse Gemini JSON output:', parseTextErr(responseText));
+    } catch (parseErr: any) {
+      console.error('Failed to parse Gemini JSON output:', responseText.slice(0, 200), parseErr);
+      if (isDebug) {
+        return res.status(500).json({
+          error: 'Failed to parse Gemini JSON output',
+          details: parseErr?.message || String(parseErr),
+          rawResponse: responseText,
+        });
+      }
       const sample = SAMPLE_FRIDGES[0];
       return res.json({
         detectedIngredients: sample.presetIngredients,
@@ -253,6 +324,14 @@ Return JSON adhering strictly to this schema:
     return res.json(parsedData);
   } catch (error: any) {
     console.error('Error in /api/analyze-fridge:', error);
+    const isDebug = process.env.DEBUG === 'true';
+    if (isDebug) {
+      return res.status(500).json({
+        error: error?.message || 'Error executing Gemini API call',
+        stack: error?.stack,
+        details: String(error),
+      });
+    }
     const sample = SAMPLE_FRIDGES[0];
     return res.status(200).json({
       detectedIngredients: sample.presetIngredients,
@@ -261,10 +340,6 @@ Return JSON adhering strictly to this schema:
     });
   }
 });
-
-function parseTextErr(text: string) {
-  return text.slice(0, 200);
-}
 
 async function startServer() {
   if (process.env.NODE_ENV !== 'production') {
