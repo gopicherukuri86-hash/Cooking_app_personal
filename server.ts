@@ -157,15 +157,24 @@ YOUR TASK:
             properties: {
               id: { type: Type.STRING },
               name: { type: Type.STRING },
-              category: { type: Type.STRING },
+              category: {
+                type: Type.STRING,
+                enum: ['Produce', 'Protein', 'Dairy', 'Pantry', 'Spices', 'Grains', 'Beverages', 'Other'],
+              },
               quantity: { type: Type.STRING },
-              freshness: { type: Type.STRING },
+              freshness: {
+                type: Type.STRING,
+                enum: ['Fresh', 'Use Soon', 'Frozen', 'Pantry Item'],
+              },
               confidence: { type: Type.NUMBER },
               suggestedSubstitute: {
                 type: Type.OBJECT,
                 properties: {
                   alternativeName: { type: Type.STRING },
-                  type: { type: Type.STRING },
+                  type: {
+                    type: Type.STRING,
+                    enum: ['Healthy', 'Pantry', 'Low Calorie'],
+                  },
                   reason: { type: Type.STRING },
                   caloriesSaved: { type: Type.STRING },
                 },
@@ -187,7 +196,10 @@ YOUR TASK:
               cookTime: { type: Type.STRING },
               totalTimeMinutes: { type: Type.NUMBER },
               calories: { type: Type.NUMBER },
-              difficulty: { type: Type.STRING },
+              difficulty: {
+                type: Type.STRING,
+                enum: ['Easy', 'Medium', 'Hard'],
+              },
               servings: { type: Type.NUMBER },
               cuisine: { type: Type.STRING },
               regionalStyle: { type: Type.STRING },
@@ -196,7 +208,10 @@ YOUR TASK:
                 type: Type.ARRAY,
                 items: { type: Type.STRING },
               },
-              mealType: { type: Type.STRING },
+              mealType: {
+                type: Type.STRING,
+                enum: ['Breakfast', 'Lunch', 'Dinner', 'Snack', 'Snacks'],
+              },
               availableIngredients: {
                 type: Type.ARRAY,
                 items: { type: Type.STRING },
@@ -208,7 +223,10 @@ YOUR TASK:
                   properties: {
                     name: { type: Type.STRING },
                     amount: { type: Type.STRING },
-                    category: { type: Type.STRING },
+                    category: {
+                      type: Type.STRING,
+                      enum: ['Produce', 'Protein', 'Dairy', 'Pantry', 'Spices', 'Grains', 'Beverages', 'Other'],
+                    },
                     estimatedCost: { type: Type.STRING },
                   },
                   required: ['name', 'amount'],
