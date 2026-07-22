@@ -34,12 +34,12 @@ const CATEGORIES: IngredientCategory[] = [
 ];
 
 const QUICK_DISH_SUGGESTIONS = [
+  { name: "Mom's Indian Peanut Salad", style: 'Telugu / South Indian', icon: '🥜', desc: 'Boiled Peanuts, Carrots, Onions & Popu' },
   { name: 'Gutti Vankaya Kura', style: 'Telugu / Andhra', icon: '🌶️', desc: 'Stuffed Eggplant Curry' },
   { name: 'Andhra Pappu Charu', style: 'Telugu / Andhra', icon: '🍲', desc: 'Tangy Tempered Lentil Soup' },
   { name: 'Pesarattu Upma', style: 'Telugu / Andhra', icon: '🥞', desc: 'Protein Green Gram Crepe' },
   { name: 'Gongura Chicken or Paneer', style: 'Telugu / Andhra', icon: '🍃', desc: 'Roselle Leaves Tangy Curry' },
   { name: 'Hyderabadi Dum Biryani', style: 'Indian', icon: '🥘', desc: 'Aromatic Layered Rice & Spices' },
-  { name: 'Tuscan Garlic Salmon', style: 'Global', icon: '🐟', desc: 'Herb Skillet Fish' },
 ];
 
 export const FridgeScanner: React.FC<FridgeScannerProps> = ({
@@ -55,6 +55,9 @@ export const FridgeScanner: React.FC<FridgeScannerProps> = ({
   const [directDishName, setDirectDishName] = useState<string>('');
   const [cuisineStyle, setCuisineStyle] = useState<string>('Telugu / Andhra');
   const [healthyDietFocus, setHealthyDietFocus] = useState<boolean>(true);
+  const [momsTweak, setMomsTweak] = useState<string>(
+    "Mom's traditional popu tempering (mustard seeds, cumin, hing & curry leaves) with fresh lemon juice"
+  );
 
   const [selectedSampleId, setSelectedSampleId] = useState<string>(SAMPLE_FRIDGES[0].id);
   const [customImagePreview, setCustomImagePreview] = useState<string | null>(null);
@@ -141,6 +144,7 @@ export const FridgeScanner: React.FC<FridgeScannerProps> = ({
       directDishQuery: generatorMode === 'direct' ? dishToQuery : undefined,
       regionalCuisineStyle: cuisineStyle,
       healthyDietFocus,
+      momsSecretTweak: momsTweak,
       image: generatorMode === 'fridge' ? customImagePreview || undefined : undefined,
       sampleId: generatorMode === 'fridge' && !customImagePreview ? selectedSampleId : undefined,
       manualIngredients: generatorMode === 'fridge' ? manualIngredients : undefined,
@@ -270,6 +274,73 @@ export const FridgeScanner: React.FC<FridgeScannerProps> = ({
                         {style}
                       </button>
                     ))}
+                  </div>
+                </div>
+
+                {/* Mom's Nostalgic Recipe Customizer */}
+                <div className="space-y-2 p-4 bg-[#F9F8F4] border border-[#E6E2D3] rounded-2xl">
+                  <div className="flex items-center justify-between">
+                    <label className="text-[11px] uppercase tracking-widest text-[#5A5A40] font-bold block">
+                      Mom's Secret Tweak / Family Memory Note:
+                    </label>
+                    <span className="text-[10px] bg-[#E6E2D3] text-[#333322] px-2 py-0.5 rounded-full font-bold">
+                      Mom's Memory Engine
+                    </span>
+                  </div>
+                  <input
+                    type="text"
+                    value={momsTweak}
+                    onChange={(e) => setMomsTweak(e.target.value)}
+                    placeholder="e.g. My mom pressure-boils ingredients with turmeric, uses mustard-curry leaf tadka, or balances with tamarind & jaggery..."
+                    className="w-full bg-white border border-[#D1CEC0] focus:border-[#5A5A40] rounded-xl px-3.5 py-2.5 text-xs text-[#333322] focus:outline-none"
+                  />
+                  
+                  {/* Quick Mom's Recipe Tweak Chips */}
+                  <div className="flex flex-wrap gap-1.5 pt-1">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setMomsTweak(
+                          "Mom's traditional popu tempering: Mustard seeds, cumin, pinch of hing & fresh curry leaves crackled in 1/2 tsp oil"
+                        )
+                      }
+                      className="text-[10px] bg-white border border-[#D1CEC0] hover:border-[#5A5A40] text-[#5A5A40] px-2.5 py-1 rounded-full font-semibold transition-colors"
+                    >
+                      🌿 Sizzling Popu / Tadka
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setMomsTweak(
+                          'Pressure boiled with a pinch of turmeric, salt & green chili for soft, gut-friendly digestion'
+                        )
+                      }
+                      className="text-[10px] bg-white border border-[#D1CEC0] hover:border-[#5A5A40] text-[#5A5A40] px-2.5 py-1 rounded-full font-semibold transition-colors"
+                    >
+                      🫕 Pressure-Boiled & Turmeric
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setMomsTweak(
+                          'Tangy tamarind pulp balanced with a tiny touch of organic jaggery and crushed garlic cloves'
+                        )
+                      }
+                      className="text-[10px] bg-white border border-[#D1CEC0] hover:border-[#5A5A40] text-[#5A5A40] px-2.5 py-1 rounded-full font-semibold transition-colors"
+                    >
+                      🍋 Tamarind & Jaggery Balance
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setMomsTweak(
+                          'Finely chopped fresh raw carrots, red onions, tomatoes, green chilies, coriander & lemon juice'
+                        )
+                      }
+                      className="text-[10px] bg-white border border-[#D1CEC0] hover:border-[#5A5A40] text-[#5A5A40] px-2.5 py-1 rounded-full font-semibold transition-colors"
+                    >
+                      🥗 Fresh Salad Crunch & Lemon
+                    </button>
                   </div>
                 </div>
 

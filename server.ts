@@ -45,6 +45,7 @@ app.post('/api/analyze-fridge', async (req, res) => {
       directDishQuery,
       regionalCuisineStyle,
       healthyDietFocus,
+      momsSecretTweak,
       dietaryPreferences,
       customCravings,
     } = req.body;
@@ -107,10 +108,11 @@ app.post('/api/analyze-fridge', async (req, res) => {
       : 'No strict restrictions';
 
     const cravingsText = customCravings ? `User Craving / Special Note: "${customCravings}"` : '';
+    const momsTweakText = momsSecretTweak ? `MOM'S TRADITIONAL RECIPE NOTE / POPU SECRET: "${momsSecretTweak}"` : '';
     const directSearchText = directDishQuery ? `DIRECT DISH SEARCH: "${directDishQuery}"` : '';
     const styleText = regionalCuisineStyle ? `PREFERRED REGIONAL STYLE: ${regionalCuisineStyle}` : 'Telugu / Andhra & Indian Focus';
     const wifeDietText = healthyDietFocus
-      ? 'CRITICAL REQUIREMENT: Wife is very diet-conscious! Include specific low-calorie swaps & healthy substitutes (e.g., air-fryer swaps, cauliflower/millet rice, Greek yogurt substitutes) for each recipe.'
+      ? 'CRITICAL REQUIREMENT: Include low-calorie healthy substitutes & smart swaps (e.g., boiled/air-roasted nuts, air-fryer swaps, cauliflower/millet rice, Greek yogurt substitutes, jaggery/date paste) for every recipe.'
       : 'Include low-calorie healthy substitute ideas for key ingredients.';
 
     const textPrompt = `
@@ -120,19 +122,19 @@ CONTEXT & INPUTS:
 - ${directSearchText || 'Mode: Fridge Photo Scan / Inventory'}
 - Manual Ingredients: [${manualList}]
 - ${styleText}
+- ${momsTweakText}
 - Dietary Preferences: [${dietaryList}]
 - ${wifeDietText}
 - ${cravingsText}
 
 YOUR TASK:
-1. If an image or manual ingredients are provided, list detected items cleanly under "detectedIngredients". If a direct dish search is requested, list standard kitchen pantry items required for that dish under "detectedIngredients".
-2. Generate 3 to 4 authentic, highly appetizing recipe variations matching the user's requested dish or ingredients.
-3. Priority Cuisine Rules:
-   - If user asks for Telugu / Andhra cooking, ensure authentic dish names and traditional techniques (e.g., Gutti Vankaya, Gongura, Pappu Charu, Pesarattu, Iguru, Pulusu, Vepudu, Biryani).
-   - If user requests another style (Mediterranean, Italian, Asian, etc.), accommodate gracefully while maintaining high quality.
+1. If an image or manual ingredients are provided, list detected items cleanly under "detectedIngredients". If a direct dish search or Mom's style recipe is requested (e.g. Peanut Salad with carrots, onions, mustard tempering/popu), list standard kitchen pantry items required for that dish under "detectedIngredients".
+2. Generate 3 to 4 authentic, highly appetizing recipe variations matching the user's requested dish, ingredients, or Mom's traditional tweak.
+3. Priority Cuisine & Mom's Recipe Rules:
+   - Honor Mom's recipe notes & traditional techniques (e.g. boiled/roasted peanuts, mustard seed & red chili tempering, curry leaves, raw mango, tamarind vs lemon, Gutti Vankaya, Gongura, Pappu Charu, Pesarattu).
 4. FOR EVERY RECIPE, PROVIDE DETAILED HEALTHY SUBSTITUTES ("healthySubstitutes"):
-   - Identify 1 to 3 heavier ingredients or cooking methods (e.g., deep frying, white rice, heavy cream, excess oil/ghee) and provide clear, low-calorie substitutes tailored for a diet-conscious wife.
-   - Include calories saved (e.g. "Saved ~140 kcal"), health benefit description, and cooking adjustments.
+   - Identify 1 to 3 heavier ingredients or cooking methods (e.g. oil-fried peanuts -> boiled/air-roasted peanuts; fried papad -> roasted makhana; heavy oil -> light olive oil spray) and provide clear, low-calorie substitutes.
+   - Include calories saved (e.g. "Saved ~120 kcal"), health benefit description, and cooking adjustments.
 
 Return JSON adhering strictly to this schema:
 {

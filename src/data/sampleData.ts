@@ -221,6 +221,96 @@ export const TELUGU_INDIAN_RECIPES: Recipe[] = [
     ],
   },
   {
+    id: 'rec-moms-peanut-salad',
+    title: "Mom's Nostalgic Indian Peanut Salad (Palli Salad)",
+    description: "Crunchy boiled peanuts tossed with finely diced carrots, red onions, juicy tomatoes, green chilies, and tempered with mustard seeds, curry leaves, hing & squeezed lemon — just like Mom makes it.",
+    imageUrl: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=1000&q=80',
+    prepTime: '10 mins',
+    cookTime: '10 mins',
+    totalTimeMinutes: 20,
+    calories: 220,
+    difficulty: 'Easy',
+    servings: 2,
+    cuisine: 'Indian',
+    regionalStyle: 'Telugu / Andhra & South Indian',
+    matchScore: 98,
+    dietaryTags: ['Vegetarian', 'Gluten-Free', 'High Fiber', 'High Protein', 'Low Calorie'],
+    mealType: 'Lunch',
+    availableIngredients: ['Raw Peanuts / Groundnuts', 'Carrots', 'Red Onions', 'Tomatoes', 'Green Chilies', 'Fresh Lemon Juice', 'Coriander Leaves', 'Mustard Seeds', 'Curry Leaves', 'Cumin Powder', 'Chaat Masala'],
+    missingIngredients: [
+      { name: 'Raw Mango / Tender Cucumber', amount: '1/2 cup', category: 'Produce', estimatedCost: '$0.50' },
+      { name: 'Pinch of Hing (Asafoetida)', amount: '1 pinch', category: 'Spices', estimatedCost: '$0.10' },
+    ],
+    healthySubstitutes: [
+      {
+        originalIngredient: 'Deep-fried peanuts or oil roasting',
+        substituteIngredient: 'Pressure boiled raw peanuts with a pinch of salt & turmeric',
+        caloriesSaved: 'Saved ~110 kcal per serving',
+        healthBenefit: 'Removes added cooking oils while boosting digestibility & retaining plant protein.',
+        cookingAdjustment: 'Pressure cook raw peanuts with salt & turmeric for 3 whistles or boil 15 mins.'
+      },
+      {
+        originalIngredient: 'Deep fried papad / bhujia topping',
+        substituteIngredient: 'Dry-roasted Makhana (Foxnuts) or Sprouted Moong Beans',
+        caloriesSaved: 'Saved ~90 kcal per serving',
+        healthBenefit: 'Adds incredible crunch with double the dietary fiber and zero trans fat.',
+        cookingAdjustment: 'Toss in dry roasted makhana right before serving so it stays super crunchy.'
+      },
+      {
+        originalIngredient: 'Heavy ghee tempering (popu)',
+        substituteIngredient: '1/2 tsp Ghee/Cold Pressed Sesame Oil spray for tempering mustard & curry leaves',
+        caloriesSaved: 'Saved ~60 kcal per serving',
+        healthBenefit: 'Preserves Mom\'s fragrant mustard-curry leaf aroma without excess fat.',
+        cookingAdjustment: 'Splutter mustard seeds, cumin & curry leaves in just 1/2 tsp oil in a tiny tadka pan.'
+      }
+    ],
+    chefTip: "Mom's Secret Tweak: Boil peanuts with a pinch of turmeric and salt. Tempering mustard seeds, hing, and curry leaves in hot oil before pouring over raw onions & carrots unlocks that authentic home kitchen aroma!",
+    nutritionalFacts: {
+      calories: 220,
+      protein: '11g',
+      carbs: '18g',
+      fat: '12g',
+      fiber: '7g',
+      micronutrients: {
+        ironMg: 2.8,
+        calciumMg: 65,
+        vitaminCMg: 32,
+        potassiumMg: 420,
+        sodiumMg: 210,
+      },
+    },
+    steps: [
+      {
+        stepNumber: 1,
+        title: 'Boil Peanuts Mom-Style',
+        description: 'Rinse raw peanuts and pressure cook with 1 cup water, a pinch of turmeric, and salt for 3-4 whistles until tender but firm.',
+        durationMinutes: 10,
+        ingredientsUsed: ['Raw Peanuts / Groundnuts'],
+      },
+      {
+        stepNumber: 2,
+        title: 'Chop Fresh Vegetables & Toss',
+        description: 'Finely dice carrots, red onions, tomatoes, and green chilies. Mix in a wide bowl with boiled peanuts, lemon juice, chaat masala, and roasted cumin powder.',
+        durationMinutes: 5,
+        ingredientsUsed: ['Carrots', 'Red Onions', 'Tomatoes', 'Green Chilies', 'Fresh Lemon Juice'],
+      },
+      {
+        stepNumber: 3,
+        title: "Mom's Special Popu (Tempering)",
+        description: 'Heat 1/2 tsp oil in a small tadka pan. Add mustard seeds, cumin seeds, pinch of hing, red chili, and fresh curry leaves. When they crackle, pour sizzling over the peanut salad.',
+        durationMinutes: 3,
+        ingredientsUsed: ['Mustard Seeds', 'Curry Leaves'],
+      },
+      {
+        stepNumber: 4,
+        title: 'Garnish & Serve Fresh',
+        description: 'Garnish generously with chopped cilantro and a squeeze of extra fresh lime. Enjoy Mom\'s nostalgic, protein-packed salad!',
+        durationMinutes: 2,
+        ingredientsUsed: ['Coriander Leaves'],
+      },
+    ],
+  },
+  {
     id: 'rec-hyderabadi-paneer-tikka',
     title: 'Low-Calorie Hyderabadi Paneer Tikka Gravy',
     description: 'Char-broiled paneer cubes and bell peppers simmered in a spiced tomato yogurt curry infused with mint, kasuri methi, and saffron.',

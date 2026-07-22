@@ -159,6 +159,7 @@ export interface AnalyzeFridgeRequest {
   directDishQuery?: string; // Allow searching for a dish directly by name (e.g. "Gutti Vankaya Kura", "Paneer Butter Masala")
   regionalCuisineStyle?: string; // 'Telugu / Andhra', 'South Indian', 'North Indian', 'Pan-Indian', 'Global'
   healthyDietFocus?: boolean; // Prioritize low-calorie & healthy substitutes for wife
+  momsSecretTweak?: string; // Mom's traditional recipe memory note / popu secret
   dietaryPreferences?: DietaryRestriction[];
   customCravings?: string;
 }
