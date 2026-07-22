@@ -143,6 +143,9 @@ YOUR TASK:
 4. FOR EVERY RECIPE, PROVIDE DETAILED HEALTHY SUBSTITUTES ("healthySubstitutes"):
    - Identify 1 to 3 heavier ingredients or cooking methods (e.g. oil-fried peanuts -> boiled/air-roasted peanuts; fried papad -> roasted makhana; heavy oil -> light olive oil spray) and provide clear, low-calorie substitutes.
    - Include calories saved (e.g. "Saved ~120 kcal"), health benefit description, and cooking adjustments.
+5. COOKING STEPS INSTRUCTIONS ("steps"):
+   - QUANTITIES: Every step description MUST include explicit or rough quantities inline for ingredients used in that step (e.g., "1 tsp mustard seeds, 1/2 tsp cumin, 4 crushed garlic cloves to 1 tbsp hot oil", "1/2 tsp salt", "1.5 cups warm water"). Anchor these quantities to the recipe's servings (e.g. serves 4).
+   - THE "WHY" (TECHNIQUE REASONING): For each step, briefly explain WHY that step matters or what it achieves (e.g., "Low flame lo garlic fry chey, endukante high heat lo garlic burn ayi bitter avuthundi" or "Dal ni baaga mash chey, creamy texture ki ide key"). Fold the "why" naturally into each step's description or tip in Tanglish / casual English (keep it to one clear clause).
 `;
 
     parts.push({ text: textPrompt });
