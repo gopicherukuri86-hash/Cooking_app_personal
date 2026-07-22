@@ -8,6 +8,13 @@ export type IngredientCategory =
   | 'Beverages'
   | 'Other';
 
+export interface IngredientSubstituteSuggestion {
+  alternativeName: string;
+  type: 'Healthy' | 'Pantry' | 'Low Calorie';
+  reason: string;
+  caloriesSaved?: string;
+}
+
 export interface IngredientItem {
   id: string;
   name: string;
@@ -15,6 +22,8 @@ export interface IngredientItem {
   quantity?: string;
   freshness?: 'Fresh' | 'Use Soon' | 'Frozen' | 'Pantry Item';
   confidence?: number;
+  suggestedSubstitute?: IngredientSubstituteSuggestion;
+  isMissingOrLow?: boolean;
 }
 
 export type DietaryRestriction =

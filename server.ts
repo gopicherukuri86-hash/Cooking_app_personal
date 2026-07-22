@@ -159,6 +159,15 @@ YOUR TASK:
               quantity: { type: Type.STRING },
               freshness: { type: Type.STRING },
               confidence: { type: Type.NUMBER },
+              suggestedSubstitute: {
+                type: Type.OBJECT,
+                properties: {
+                  alternativeName: { type: Type.STRING },
+                  type: { type: Type.STRING },
+                  reason: { type: Type.STRING },
+                  caloriesSaved: { type: Type.STRING },
+                },
+              },
             },
             required: ['id', 'name', 'category'],
           },
