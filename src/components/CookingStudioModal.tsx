@@ -18,7 +18,7 @@ import {
   Heart,
   Leaf,
 } from 'lucide-react';
-import { Recipe, MissingIngredient } from '../types';
+import { Recipe, MissingIngredient, MealCategory } from '../types';
 import { speechManager } from '../utils/speech';
 
 interface CookingStudioModalProps {

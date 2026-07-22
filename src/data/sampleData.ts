@@ -234,7 +234,7 @@ export const TELUGU_INDIAN_RECIPES: Recipe[] = [
     cuisine: 'Indian',
     regionalStyle: 'Telugu / Andhra & South Indian',
     matchScore: 98,
-    dietaryTags: ['Vegetarian', 'Gluten-Free', 'High Fiber', 'High Protein', 'Low Calorie'],
+    dietaryTags: ['Vegetarian', 'Gluten-Free', 'Low Carb', 'High Protein', 'Low Calorie'],
     mealType: 'Lunch',
     availableIngredients: ['Raw Peanuts / Groundnuts', 'Carrots', 'Red Onions', 'Tomatoes', 'Green Chilies', 'Fresh Lemon Juice', 'Coriander Leaves', 'Mustard Seeds', 'Curry Leaves', 'Cumin Powder', 'Chaat Masala'],
     missingIngredients: [
