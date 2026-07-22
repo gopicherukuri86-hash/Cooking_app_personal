@@ -1,0 +1,313 @@
+import { SampleFridge, Recipe } from '../types';
+
+export const TELUGU_INDIAN_RECIPES: Recipe[] = [
+  {
+    id: 'rec-gutti-vankaya',
+    title: 'Authentic Telugu Gutti Vankaya Kura (Stuffed Eggplant Curry)',
+    description: 'Tender baby brinjals stuffed with a aromatic dry-roasted sesame, peanut, coconut, and coriander spice paste, simmered in a tangy Andhra gravy.',
+    imageUrl: 'https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=1000&q=80',
+    prepTime: '15 mins',
+    cookTime: '20 mins',
+    totalTimeMinutes: 35,
+    calories: 290,
+    difficulty: 'Medium',
+    servings: 4,
+    cuisine: 'Indian',
+    regionalStyle: 'Telugu / Andhra',
+    matchScore: 98,
+    dietaryTags: ['Vegetarian', 'Gluten-Free', 'Low Calorie', 'High Protein'],
+    mealType: 'Dinner',
+    availableIngredients: ['Baby Brinjal / Eggplant', 'Peanuts', 'White Sesame Seeds', 'Desiccated Coconut', 'Tamarind Pulp', 'Coriander Seeds', 'Garlic', 'Onion', 'Cold-pressed Oil'],
+    missingIngredients: [
+      { name: 'Fresh Curry Leaves & Cilantro', amount: '2 sprigs', category: 'Produce', estimatedCost: '$0.50' },
+      { name: 'Red Chili Powder (Guntur Chili)', amount: '1 tsp', category: 'Spices', estimatedCost: '$0.30' },
+    ],
+    healthySubstitutes: [
+      {
+        originalIngredient: 'Deep-frying Brinjal in excess oil',
+        substituteIngredient: 'Air-fry or steam slit brinjals with 1 tsp oil spray',
+        caloriesSaved: 'Saved ~140 kcal',
+        healthBenefit: 'Drastically reduces saturated fat while preserving tender, creamy texture.',
+        cookingAdjustment: 'Air-fry at 375°F (190°C) for 8 minutes before simmering in gravy.'
+      },
+      {
+        originalIngredient: 'Standard White Basmati Rice',
+        substituteIngredient: 'Foxtail Millet (Korralu) or Cauliflower Rice',
+        caloriesSaved: 'Saved ~130 kcal per serving',
+        healthBenefit: 'Low glycemic index, rich in complex fiber & minerals — perfect for diet-conscious meals.',
+        cookingAdjustment: 'Cook millets in 1:2 ratio water for 12 mins on low flame.'
+      }
+    ],
+    chefTip: 'Roast peanuts and sesame seeds on low heat until fragrant before grinding to release natural nutty oils without needing extra ghee.',
+    nutritionalFacts: {
+      calories: 290,
+      protein: '11g',
+      carbs: '22g',
+      fat: '16g',
+      fiber: '9g',
+      micronutrients: {
+        ironMg: 3.8,
+        calciumMg: 120,
+        vitaminCMg: 18,
+        potassiumMg: 420,
+        sodiumMg: 340,
+      },
+    },
+    steps: [
+      {
+        stepNumber: 1,
+        title: 'Slit & Soak Brinjals',
+        description: 'Cross-slit small purple brinjals from the bottom keeping stems intact. Soak in salted water for 10 minutes to prevent bitterness.',
+        durationMinutes: 5,
+        ingredientsUsed: ['Baby Brinjal / Eggplant'],
+      },
+      {
+        stepNumber: 2,
+        title: 'Roast & Grind Telugu Masala',
+        description: 'Dry roast 2 tbsp peanuts, 1 tbsp sesame seeds, 1 tbsp coconut, coriander seeds, and dry red chilies. Grind with ginger, garlic, and tamarind water into a thick spice paste.',
+        durationMinutes: 7,
+        tip: 'Add a tiny splash of water to make a compact paste that stays inside the eggplants.',
+        ingredientsUsed: ['Peanuts', 'White Sesame Seeds', 'Desiccated Coconut', 'Tamarind Pulp', 'Garlic'],
+      },
+      {
+        stepNumber: 3,
+        title: 'Stuff & Lightly Sauté',
+        description: 'Generously stuff the masala paste into each slit brinjal. Heat 1 tbsp oil in a heavy kadai or pan, sauté stuffed brinjals for 8 minutes on medium-low until skin blisters slightly.',
+        durationMinutes: 8,
+        ingredientsUsed: ['Baby Brinjal / Eggplant', 'Cold-pressed Oil'],
+      },
+      {
+        stepNumber: 4,
+        title: 'Simmer Gravy & Serve',
+        description: 'Pour remaining spice paste water into pan. Cover and simmer gently on low heat for 12 minutes until brinjals are melt-in-the-mouth soft and oil separates gently. Garnish with fresh coriander.',
+        durationMinutes: 12,
+        ingredientsUsed: ['Fresh Curry Leaves & Cilantro'],
+      },
+    ],
+  },
+  {
+    id: 'rec-andhra-pappu-charu',
+    title: 'Andhra Tomato Pappu Charu & Tempered Spinach',
+    description: 'Comforting Telugu style Toor dal stewed with ripe tomatoes, tamarind juice, and tempered with mustard seeds, cumin, garlic, and crispy curry leaves.',
+    imageUrl: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=1000&q=80',
+    prepTime: '10 mins',
+    cookTime: '15 mins',
+    totalTimeMinutes: 25,
+    calories: 210,
+    difficulty: 'Easy',
+    servings: 4,
+    cuisine: 'Indian',
+    regionalStyle: 'Telugu / Andhra',
+    matchScore: 96,
+    dietaryTags: ['Vegetarian', 'Gluten-Free', 'Low Calorie', 'High Protein', 'Dairy-Free'],
+    mealType: 'Lunch',
+    availableIngredients: ['Toor Dal / Yellow Lentils', 'Ripe Tomatoes', 'Tamarind', 'Garlic Cloves', 'Mustard & Cumin Seeds', 'Asafoetida (Hing)', 'Turmeric Powder'],
+    missingIngredients: [
+      { name: 'Fresh Curry Leaves', amount: '1 sprig', category: 'Produce', estimatedCost: '$0.40' },
+      { name: 'Green Chilies', amount: '3 pcs', category: 'Produce', estimatedCost: '$0.30' },
+    ],
+    healthySubstitutes: [
+      {
+        originalIngredient: '2 tbsp Ghee for Tadka',
+        substituteIngredient: '1 tsp Cold-pressed Mustard Oil or Ghee Spray',
+        caloriesSaved: 'Saved ~110 kcal',
+        healthBenefit: 'Maintains authentic tempering aroma with minimal fat content.',
+        cookingAdjustment: 'Sizzle spices in hot 1 tsp oil spray right at the end for maximum aroma bursting.'
+      }
+    ],
+    chefTip: 'Mash the pressure-cooked dal thoroughly with tomatoes before adding tamarind juice for an extra velvety texture.',
+    nutritionalFacts: {
+      calories: 210,
+      protein: '14g',
+      carbs: '32g',
+      fat: '4g',
+      fiber: '7g',
+      micronutrients: {
+        ironMg: 4.2,
+        calciumMg: 85,
+        vitaminCMg: 24,
+        potassiumMg: 510,
+        sodiumMg: 420,
+      },
+    },
+    steps: [
+      {
+        stepNumber: 1,
+        title: 'Pressure Cook Dal & Tomatoes',
+        description: 'Pressure cook 1 cup yellow split lentils (Toor dal) with 2 chopped tomatoes, turmeric, and 3 cups water for 4 whistles.',
+        durationMinutes: 12,
+        ingredientsUsed: ['Toor Dal / Yellow Lentils', 'Ripe Tomatoes', 'Turmeric Powder'],
+      },
+      {
+        stepNumber: 2,
+        title: 'Mash & Season Gravy',
+        description: 'Mash dal finely using a whisk. Stir in tamarind extract, salt, slit green chilies, and 1 cup water. Simmer for 6 mins.',
+        durationMinutes: 6,
+        ingredientsUsed: ['Tamarind'],
+      },
+      {
+        stepNumber: 3,
+        title: 'Crispy Telugu Popu / Tadka',
+        description: 'In a small pan, heat 1 tsp ghee/oil. Sizzle mustard seeds, cumin seeds, crushed garlic, dry red chilies, and curry leaves until fragrant. Pour sizzling over Charu instantly!',
+        durationMinutes: 3,
+        ingredientsUsed: ['Garlic Cloves', 'Mustard & Cumin Seeds', 'Asafoetida (Hing)'],
+      },
+    ],
+  },
+  {
+    id: 'rec-pesarattu-upma',
+    title: 'Protein-Rich Andhra Pesarattu (Whole Green Gram Crepe)',
+    description: 'Crisp, vibrant green crepe made from soaked whole mung beans and ginger, served with spicy ginger tamarind (Allam) chutney.',
+    imageUrl: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=1000&q=80',
+    prepTime: '10 mins',
+    cookTime: '10 mins',
+    totalTimeMinutes: 20,
+    calories: 240,
+    difficulty: 'Easy',
+    servings: 3,
+    cuisine: 'Indian',
+    regionalStyle: 'Telugu / Andhra',
+    matchScore: 99,
+    dietaryTags: ['Vegan', 'Vegetarian', 'Gluten-Free', 'High Protein', 'Low Calorie', 'Low Carb'],
+    mealType: 'Breakfast',
+    availableIngredients: ['Whole Green Mung Beans', 'Fresh Ginger', 'Green Chilies', 'Cumin Seeds', 'Raw Rice or Oats (optional)'],
+    missingIngredients: [
+      { name: 'Fresh Ginger Tamarind (Allam Chutney)', amount: '2 tbsp', category: 'Pantry', estimatedCost: '$0.80' },
+    ],
+    healthySubstitutes: [
+      {
+        originalIngredient: 'Traditional Semolina Upma stuffing',
+        substituteIngredient: 'Spiced Quinoa or Steamed Oats filling',
+        caloriesSaved: 'Saved ~90 kcal',
+        healthBenefit: 'Provides complete plant protein and slow-digesting complex fiber.',
+        cookingAdjustment: 'Lightly toss cooked quinoa with mustard seeds and curry leaves before spooning onto crepe.'
+      }
+    ],
+    chefTip: 'Grind mung beans with ginger and green chilies. Batter requires zero fermentation — ready instantly after grinding!',
+    nutritionalFacts: {
+      calories: 240,
+      protein: '16g',
+      carbs: '34g',
+      fat: '4g',
+      fiber: '8g',
+      micronutrients: {
+        ironMg: 5.1,
+        calciumMg: 110,
+        vitaminCMg: 14,
+        potassiumMg: 480,
+        sodiumMg: 280,
+      },
+    },
+    steps: [
+      {
+        stepNumber: 1,
+        title: 'Grind Mung Batter',
+        description: 'Blend soaked whole green gram (mung), ginger, green chilies, cumin seeds, and salt into a smooth batter.',
+        durationMinutes: 5,
+        ingredientsUsed: ['Whole Green Mung Beans', 'Fresh Ginger', 'Green Chilies', 'Cumin Seeds'],
+      },
+      {
+        stepNumber: 2,
+        title: 'Pour & Spread Crepe',
+        description: 'Ladle batter onto hot cast iron tawa, spread outward smoothly into thin circle. Sprinkle finely chopped onions and coriander.',
+        durationMinutes: 3,
+      },
+      {
+        stepNumber: 3,
+        title: 'Crisp & Serve',
+        description: 'Drizzle 1/2 tsp oil around edges. Cook on medium-high until bottom turns crispy golden green. Fold and serve with Allam Pachadi!',
+        durationMinutes: 2,
+      },
+    ],
+  },
+  {
+    id: 'rec-hyderabadi-paneer-tikka',
+    title: 'Low-Calorie Hyderabadi Paneer Tikka Gravy',
+    description: 'Char-broiled paneer cubes and bell peppers simmered in a spiced tomato yogurt curry infused with mint, kasuri methi, and saffron.',
+    imageUrl: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=1000&q=80',
+    prepTime: '15 mins',
+    cookTime: '15 mins',
+    totalTimeMinutes: 30,
+    calories: 320,
+    difficulty: 'Medium',
+    servings: 3,
+    cuisine: 'Indian',
+    regionalStyle: 'North & South Indian Fusion',
+    matchScore: 92,
+    dietaryTags: ['Vegetarian', 'Gluten-Free', 'High Protein', 'Low Carb', 'Low Calorie'],
+    mealType: 'Dinner',
+    availableIngredients: ['Low-Fat Paneer / Cottage Cheese', 'Greek Yogurt', 'Bell Peppers', 'Onions', 'Garam Masala', 'Kashmiri Chili Powder', 'Ginger-Garlic Paste'],
+    missingIngredients: [
+      { name: 'Kasuri Methi (Dried Fenugreek)', amount: '1 tsp', category: 'Spices', estimatedCost: '$0.40' },
+      { name: 'Fresh Mint & Coriander', amount: '1/2 cup', category: 'Produce', estimatedCost: '$0.60' },
+    ],
+    healthySubstitutes: [
+      {
+        originalIngredient: 'Heavy Cooking Cream & Butter',
+        substituteIngredient: 'Whisked Low-Fat Greek Yogurt + Cashew Nut Paste (1 tbsp)',
+        caloriesSaved: 'Saved ~180 kcal',
+        healthBenefit: 'Provides velvet restaurant texture without high saturated fat content.',
+        cookingAdjustment: 'Whisk yogurt with 1 tsp cornstarch before adding so it never curdles in hot pan.'
+      }
+    ],
+    chefTip: 'Sear paneer cubes in a dry non-stick skillet or air-fryer for 5 mins to get tandoori charred spots before tossing into curry.',
+    nutritionalFacts: {
+      calories: 320,
+      protein: '22g',
+      carbs: '14g',
+      fat: '19g',
+      fiber: '4g',
+      micronutrients: {
+        ironMg: 2.1,
+        calciumMg: 380,
+        vitaminCMg: 45,
+        potassiumMg: 360,
+        sodiumMg: 520,
+      },
+    },
+    steps: [
+      {
+        stepNumber: 1,
+        title: 'Marinate & Air-Fry Paneer',
+        description: 'Toss cubed low-fat paneer and bell peppers in Greek yogurt, Kashmiri chili, garam masala, and ginger garlic paste. Air-fry or pan sear for 6 mins.',
+        durationMinutes: 8,
+        ingredientsUsed: ['Low-Fat Paneer / Cottage Cheese', 'Greek Yogurt', 'Bell Peppers'],
+      },
+      {
+        stepNumber: 2,
+        title: 'Build Spicy Tomato Gravy',
+        description: 'Sauté chopped onions, ginger garlic paste, tomato puree, and spices in 1 tsp olive oil until raw smell dissipates.',
+        durationMinutes: 6,
+        ingredientsUsed: ['Onions', 'Ginger-Garlic Paste', 'Garam Masala'],
+      },
+      {
+        stepNumber: 3,
+        title: 'Combine & Garnish',
+        description: 'Fold charred paneer into simmering gravy. Stir in crushed kasuri methi and fresh coriander. Serve hot!',
+        durationMinutes: 4,
+        ingredientsUsed: ['Low-Fat Paneer / Cottage Cheese'],
+      },
+    ],
+  },
+];
+
+export const SAMPLE_FRIDGES: SampleFridge[] = [
+  {
+    id: 'sample-fresh-produce',
+    title: 'Fresh Garden, Dairy & Indian Spices',
+    subtitle: 'Brinjals, Tomatoes, Yogurt, Greens & Spices',
+    imageUrl: 'https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?auto=format&fit=crop&w=1000&q=80',
+    description: 'Packed with baby brinjals, tomatoes, spinach, low-fat paneer, Greek yogurt, lentils, curry leaves, and fragrant spices.',
+    presetIngredients: [
+      { id: 'i1', name: 'Baby Brinjals / Eggplant', category: 'Produce', quantity: '300g', freshness: 'Fresh', confidence: 98 },
+      { id: 'i2', name: 'Ripe Tomatoes & Onions', category: 'Produce', quantity: '4 tomatoes, 2 onions', freshness: 'Fresh', confidence: 97 },
+      { id: 'i3', name: 'Low-Fat Paneer / Cottage Cheese', category: 'Protein', quantity: '250g', freshness: 'Fresh', confidence: 96 },
+      { id: 'i4', name: 'Greek Yogurt / Curd', category: 'Dairy', quantity: '1 tub', freshness: 'Fresh', confidence: 95 },
+      { id: 'i5', name: 'Toor Dal & Green Mung', category: 'Grains', quantity: 'In pantry', freshness: 'Pantry Item', confidence: 99 },
+      { id: 'i6', name: 'Curry Leaves & Ginger Garlic', category: 'Produce', quantity: 'Fresh bunch', freshness: 'Fresh', confidence: 94 },
+      { id: 'i7', name: 'Indian Spices (Mustard, Cumin, Turmeric)', category: 'Spices', quantity: 'In pantry', freshness: 'Pantry Item', confidence: 99 },
+    ],
+    defaultRecipes: TELUGU_INDIAN_RECIPES,
+  },
+];
+
