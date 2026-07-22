@@ -93,7 +93,7 @@ Once started, open your browser and navigate to:
 
 #### 2. Gemini API Key Error or 429 Quota Exceeded
 - **Symptom**: Server logs show `Missing API key` or `429 Too Many Requests`.
-- **Fix**: Check that `GEMINI_API_KEY` is set correctly in `.env` without surrounding quotes or whitespace. If quota is exceeded, generate a new free key at [Google AI Studio](https://aistudio.google.com/apikey).
+- **Fix**: Check that `GEMINI_API_KEY` is set correctly in `.env` (quotes are optional; `dotenv` handles either format smoothly). If quota is exceeded, generate a new free key at [Google AI Studio](https://aistudio.google.com/apikey).
 
 #### 3. Module Import / TypeScript Errors
 - **Symptom**: `Cannot find module` or build failures.
@@ -102,6 +102,6 @@ Once started, open your browser and navigate to:
 ---
 
 ## 🎨 Architecture Overview
-- **Backend**: Express.js server (`server.ts`) powered by `@google/genai` SDK using `gemini-2.5-flash`.
+- **Backend**: Express.js server (`server.ts`) powered by `@google/genai` SDK using `gemini-3.6-flash`.
 - **Frontend**: React 19 + TypeScript + Vite with Tailwind CSS v4 and Framer Motion.
 - **Environment**: Reads variables via `dotenv/config` at server startup.
